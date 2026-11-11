@@ -38,13 +38,13 @@ var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isI
 document.querySelectorAll('.reveal,.fade-up').forEach(function(n){ io.observe(n); });
 
 /* ---- layered parallax (mouse + tilt), offsets per depth like the reference layers ---- */
-var layers=document.querySelectorAll('.layer');
+var layers=document.querySelectorAll('.illustration-layer-wrapper');
 if(window.matchMedia('(pointer:fine)').matches){
-  document.querySelectorAll('.panel').forEach(function(panel){
+  document.querySelectorAll('.homepage-section').forEach(function(panel){
     panel.addEventListener('mousemove',function(e){
       var r=panel.getBoundingClientRect();
       var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-      panel.querySelectorAll('.layer').forEach(function(l){
+      panel.querySelectorAll('.illustration-layer-wrapper').forEach(function(l){
         var d=parseFloat(l.getAttribute('data-depth')||'.3');
         l.style.transform='translate('+(x*d*60)+'px,'+(y*d*60)+'px)';
       });
@@ -54,7 +54,7 @@ if(window.matchMedia('(pointer:fine)').matches){
 window.addEventListener('deviceorientation',function(e){
   if(e.beta===null) return;
   var b=(e.beta-45)*1.5;
-  document.querySelectorAll('.layer').forEach(function(l){
+  document.querySelectorAll('.illustration-layer-wrapper').forEach(function(l){
     var d=parseFloat(l.getAttribute('data-depth')||'.3');
     l.style.transform='translate('+(b*d*.6)+'px,'+(b*d*.3)+'px)';
   });
@@ -71,9 +71,9 @@ setInterval(function(){
 },2600);
 
 /* ---- deck dots ---- */
-var deck=document.querySelector('.deck'), dots=document.querySelectorAll('.deck-dots button');
+var deck=document.querySelector('.homepage-main-component'), dots=document.querySelectorAll('.deck-dots button');
 if(deck&&dots.length){
-  var panels=deck.querySelectorAll('.panel,.prefooter,footer');
+  var panels=deck.querySelectorAll('.homepage-section,.prefooter-section,.footer-section');
   deck.addEventListener('scroll',function(){
     var i=Math.round(deck.scrollTop/window.innerHeight);
     dots.forEach(function(d,j){ d.classList.toggle('on',j===Math.min(i,dots.length-1)); });
